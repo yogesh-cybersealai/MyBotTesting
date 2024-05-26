@@ -59,18 +59,22 @@ BOT = MyBot()
 # Listen for incoming requests on /api/messages
 async def messages(req: Request) -> Response:
     # Main bot message handler.
-    if "application/json" in req.headers["Content-Type"]:
-        body = await req.json()
-    else:
-        return Response(status=HTTPStatus.UNSUPPORTED_MEDIA_TYPE)
+    if req.method == 'POST':
+        if "application/json" in req.headers["Content-Type"]:
+            body = await req.json()
+        else:
+            return Response(status=HTTPStatus.UNSUPPORTED_MEDIA_TYPE)
 
-    activity = Activity().deserialize(body)
-    auth_header = req.headers["Authorization"] if "Authorization" in req.headers else ""
+        activity = Activity().deserialize(body)
+        auth_header = req.headers["Authorization"] if "Authorization" in req.headers else ""
 
-    response = await ADAPTER.process_activity(auth_header, activity, BOT.on_turn)
-    if response:
-        return json_response(data=response.body, status=response.status)
-    return Response(status=HTTPStatus.OK)
+        response = await ADAPTER.process_activity(auth_header, activity, BOT.on_turn)
+        if response:
+            return json_response(data=response.body, status=response.status)
+        return Response(status=HTTPStatus.OK)
+    
+    if req.method == 'GET':
+        return json_response({"message": "Hey team this is a GET request response for /api/messages"}, status=HTTPStatus.OK)
 
 
 APP = web.Application(middlewares=[aiohttp_error_middleware])
