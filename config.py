@@ -9,5 +9,9 @@ class DefaultConfig:
 
     APP_ID = os.environ.get("MicrosoftAppId", "")
     APP_PASSWORD = os.environ.get("MicrosoftAppPassword", "")
-    APP_TYPE = os.environ.get("MicrosoftAppType", "MultiTenant")
+    # APP_PASSWORD = os.environ.get("MicrosoftAppPassword", "xIx8Q~TRYYhCLgQQ3he_FQcngqiYhSaqb3DLibqP")
+    # APP_TYPE = os.environ.get("MicrosoftAppType", "MultiTenant")
     APP_TENANTID = os.environ.get("MicrosoftAppTenantId", "")
+
+# OpenAI API Key
+

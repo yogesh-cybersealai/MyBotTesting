@@ -1,1 +1,9 @@
-python app.py
+1. Create virtual env
+    virtualenv myenv
+    myenv/Scripts/activate
+
+2. Download packages
+    pip install -r requirements.txt
+    
+3. Run the application in local
+    python app.py
